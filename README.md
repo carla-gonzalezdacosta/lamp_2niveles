@@ -145,3 +145,27 @@ scripts/
 
 Los scripts se ejecutarán automáticamente mediante el aprovisionamiento de Vagrant.
 
+a. Voy a crear el fichero .env donde voy a asignar las variables
+- `New-Item -Path .env -ItemType File`
+  ![Imagen del .env creado](images/creado_env.png)
+
+- lo abro con el bloc de notas `notepad -env` y creo las variables
+  ![Imagen de las variables creadas en -env](images/notepad_env.png)
+
+- Abro desde vscode el archivo configurar_mysql.sh para crear el aprovisionamiento de mysql.
+  ![Archivo configurar_mysql.sh aprovisionamiento](images/archivo_mysqlsh.png)
+
+- Ahora creo el aprovisonamiento de apache en configurar_apache.sh:
+  ![aprovisionamiento apache.sh](images/aprovisionamiento_apache.png)
+
+Ahora levanto las vms: `vagrant up`
+
+**INCIDENCIA:**
+Cuando ejecuto `vagrant up` me sale este mensaje:
+`Machine already provisioned. Run vagrant provision or use the --provision flag to force provisioning.`
+He buscado información y es debido a que como las he iniciado antes estas dos máquinas, no se ha ejecutado los archivos de aprovisionamiento. Por ello, voy a forzar que ejecute esos archivos y los lea. 
+Creo que es debido a que he ejecutado `vagrant up`estando dentro de la carpeta scripts y no en la carpeta raiz. 
+- Me desplazo al directorio raiz: PS C:\Users\User\Documents\ASIR_2\WEB\practica_LAMP_2niveles\scripts>
+- hago un `vagrant provision`
+- `vagrant reload` para que se reinicien las vms y vuelva a cargar los aprovisionamientos
+
