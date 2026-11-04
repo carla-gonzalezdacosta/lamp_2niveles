@@ -169,3 +169,35 @@ Creo que es debido a que he ejecutado `vagrant up`estando dentro de la carpeta s
 - hago un `vagrant provision`
 - `vagrant reload` para que se reinicien las vms y vuelva a cargar los aprovisionamientos
 
+El problema real es que vagrantfile no tiene configurado el archivo de aprovisionamiento. Para ello, hago los siguientes pasos:
+Lo que voy ha hacer es modificar el vagrantfile para que cada máquina ejecute automáticamente su propio script de aprovisionamiento. 
+
+- abro vagrant file --> `code .\vagrantfile
+- añado el aprovisionamiento de apache añadiendo este código `apache.vm.provision "shell", path: "scripts/configurar_apache.sh"`
+- añado el aprovisionamiento de mysql `'mysql.vm.provision "shell", path: "scripts/configurar_mysql.sh"' `
+- compruebo que se ha configurado bien --> `vagrant validate`
+  ![Modificaciópn correcta del vagrantfile](images/modificacion_vagrantfile.png)
+
+- arranco las máquinas con `vagrant up`
+- fuerzo el aprovisionamiento `vagrant provision`
+
+**INCIDENCIA**:
+Han aparecido dos error debido a que no encuentra el archivo .env y a que se ha instalado mariadb en vez de mysql, por lo que eso lo tengo que corregir. 
+
+Lo primero que he hecho es modificar el archivo configurar_mysql.sh:
+![Modificacion archivo configurar_mysql.sh](images/modificacion_mysqlsh.png)
+
+Modifico el archivo configurar_apache.sh
+![Modificacion archivo apache](images/modificacion_apachesh.png)
+
+Modifico el vagrantfile para que ejecute el aprovisionamiento de cada máquina.
+![Modificación vagrntfile](images/modif_vagrantfile.png)
+
+Como uno de los errores era haber instalado mariadb en vez de mysql, he destruido la máquina con el comando: `vagrant destroy -f mysql` , luego la he vuelto a levantar `vagrant up mysql` para que así no tenga arrastrando esa instalación de mariadb para nada. 
+Ahora compruebo que tengo bien instalado mysql en la vm: `vagrant ssh mysql -c "mysql --version"`, conectándome ala vm por ssh y verificando la version de mysql. 
+
+Ha dado error debido a que no se ha instalado mysql: 
+![Error instalación mysql](images/error_instalarmysql.png)
+Esto es debido a este error: El paquete mysql-apt-config necesita que gnupg esté instalado previamente, pero tu script no lo había instalado.
+
+Voy a volver a editar el archivo configurar_mysql.sh 
