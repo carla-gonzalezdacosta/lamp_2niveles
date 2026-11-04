@@ -200,4 +200,17 @@ Ha dado error debido a que no se ha instalado mysql:
 ![Error instalación mysql](images/error_instalarmysql.png)
 Esto es debido a este error: El paquete mysql-apt-config necesita que gnupg esté instalado previamente, pero tu script no lo había instalado.
 
-Voy a volver a editar el archivo configurar_mysql.sh 
+Voy a volver a editar el archivo configurar_mysql.sh para que instale primero las dependencias y luego instale el repositorio y servidor mysql. 
+![modificacion archivo mysql.sh](images/modif_mysqlsh.png)
+
+Guardo los cambios y ejecuto el provisionamiento --> `vagrant provision mysql`
+ Vuelve a salirme otro error diferente porque me aparece una pantalla interactiva, por lo que no s epuede completar la instalacion de mysql
+ ![Error](images/error1.png)
+
+ Para ello, voy a volver a modificar el archivo configurar_mysql.sh añadiendo este código:
+ `echo "mysql-apt-config mysql-apt-config/select-server select mysql-8.4-lts" | sudo debconf-set-selections
+echo "mysql-apt-config mysql-apt-config/select-product select Ok" | sudo debconf-set-selections`
+
+Y la instalación la sustituyo por: `sudo apt install -y /tmp/mysql-apt-config.deb`
+
+Después vuelvo a ajecutar el provisionamienot: `vagrant provision mysql`
