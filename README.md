@@ -208,9 +208,13 @@ Guardo los cambios y ejecuto el provisionamiento --> `vagrant provision mysql`
  ![Error](images/error1.png)
 
  Para ello, voy a volver a modificar el archivo configurar_mysql.sh añadiendo este código:
- `echo "mysql-apt-config mysql-apt-config/select-server select mysql-8.4-lts" | sudo debconf-set-selections
-echo "mysql-apt-config mysql-apt-config/select-product select Ok" | sudo debconf-set-selections`
+ `echo "mysql-apt-config mysql-apt-config/select-server select mysql-8.4-lts" | sudo debconf-set-selections`
+ `echo "mysql-apt-config mysql-apt-config/select-product select Ok" | sudo debconf-set-selections`
 
 Y la instalación la sustituyo por: `sudo apt install -y /tmp/mysql-apt-config.deb`
 
 Después vuelvo a ajecutar el provisionamienot: `vagrant provision mysql`
+
+Sigue dandome probelmas, por lo que voy ha ahcer una alternatuva e instalar mariadb en vez de mysql, por lo que voy a volver a editar el archivo mysql.sh
+
+
