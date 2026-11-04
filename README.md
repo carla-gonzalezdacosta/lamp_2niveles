@@ -215,6 +215,28 @@ Y la instalación la sustituyo por: `sudo apt install -y /tmp/mysql-apt-config.d
 
 Después vuelvo a ajecutar el provisionamienot: `vagrant provision mysql`
 
-Sigue dandome probelmas, por lo que voy ha ahcer una alternatuva e instalar mariadb en vez de mysql, por lo que voy a volver a editar el archivo mysql.sh
+Sigue dándome problemas, y no consigo averiguar el problema por lo que voy a eliminar la instalación de mysql y hacerlo con mariadb. 
+Modifico el vagrantfile:
+![Edicion vagrantfile](images/nuevo_vagrantfile.png)
 
+Modifico el archivo de provisionamiento configurar_mysql.sh para que ahora el servidor se conecte a mariadb. 
+![Nuevo fichero de provisionamiento mariadb](images/aprovisionamiento_mariadb.png)
 
+Ahora arranco la vm --> `vagrant up`
+
+He podido entrar por ssh a la vm CarlaGonzalezMariadb pero no tengo instalado mariadb, porque he modificado el archivo configurar_mysql.sh, pero Vagrant no ha ejecutado automáticamente el nuevo contenido del script.
+![ssh mariadb](images/ssh_mariadb.png)
+
+He hecho un `vagrant provision mysql` para ver si ahora coge bien el archivo e instala mariadb.
+Perfecto, mariadb está activo.
+![MariaDB activo](images/activo_mariadb.png)
+
+Sin embargo, la base de datos lamp_db no se ha creado:
+![Error creación db](images/error_db.png)
+
+Por ello, he modificado la creación de la db en el fichero de provisionamiento configurar_mysql.sh.
+![Modificacion creacion db](images/creacion_db.png)
+
+Se ha solucionado correctamente, ahora si aparece la base de datos lamp_db y el usuario.
+![lamp_db](images/lamp_db.png)
+![usuario lamp_user](images/usuario_mariadb.png)
