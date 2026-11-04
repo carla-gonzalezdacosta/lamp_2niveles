@@ -240,3 +240,43 @@ Por ello, he modificado la creación de la db en el fichero de provisionamiento 
 Se ha solucionado correctamente, ahora si aparece la base de datos lamp_db y el usuario.
 ![lamp_db](images/lamp_db.png)
 ![usuario lamp_user](images/usuario_mariadb.png)
+
+---- 
+
+Una vez que he podido crear una base de datos con Mariadb, comprueboq que la vm apache tiene conexión con la de mariadb. 
+![Conexión de apache a mariadb](images/conexion_con_apache.png)
+
+Ahora compuebo que MariaDB acepta conexiones desde Apache.
+![apache puede comunicarse con mariadb](images/conexion_con_mariadb.png)
+
+Creo un archivo de prueba para hacer un vídeo y verificar que todo funiona:
+- sudo nano /var/www/html/prueba.php
+- y pongo este código:
+```php
+<?php
+
+$conexion = new mysqli(
+    "192.168.56.11",
+    "lamp_user",
+    "xxx",
+    "lamp_db",
+    3306
+);
+
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
+
+echo "¡Conexión PHP-MariaDB correcta!";
+
+$conexion->close();
+
+?>
+```
+- ejecuto la prueba:
+  `php /var/www/html/prueba.php`
+  y me aparece este mensaje: ¡Conexión PHP-MariaDB correcta!
+
+
+  El siguiente paso es mostrar la prueba desde firefox y para ello voy ha hacer una screencash.
+  ![Video de la prueba](images/screencash.mp4)
