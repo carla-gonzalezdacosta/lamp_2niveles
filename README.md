@@ -25,7 +25,7 @@ La infraestructura está formada por dos máquinas virtuales:
 | Máquina virtual | Hostname | Función |
 | --- | --- | --- |
 | Apache | CarlaGonzalezApache | Servidor web y PHP |
-| MySQL | CarlaGonzalezMysql | Servidor de base de datos |
+| MySQL | CarlaGonzalezMariadb | Servidor de base de datos |
 
 La comunicación entre ambas máquinas se realizará mediante una red privada con las siguientes direcciones IP:
 
