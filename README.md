@@ -279,4 +279,4 @@ $conexion->close();
 
 
   El siguiente paso es mostrar la prueba desde firefox y para ello voy ha hacer una screencash.
-  ![Video de la prueba](images/screencash.mp4)
+  [Video de la prueba](images/screencash.mp4)
